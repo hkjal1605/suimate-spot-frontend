@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import ComingSoon from "./components/ComingSoon";
 import TradersStats from "./components/TraderStats";
 import TradersHoldings from "./components/TradersHoldings";
+import PastTrades from "./components/PastTrades";
 
 const IndividualTradersModule = () => {
   const pathname = usePathname();
@@ -20,7 +21,9 @@ const IndividualTradersModule = () => {
           <TradersStats />
           <TradersHoldings />
         </div>
-        <div className="w-full h-full border-x-[1px] border-black-400 flex flex-col items-center justify-start"></div>
+        <div className="w-full h-full flex flex-col items-center justify-start">
+          <PastTrades />
+        </div>
       </div>
     </div>
   );
