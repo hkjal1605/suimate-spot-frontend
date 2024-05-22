@@ -1,6 +1,5 @@
 import "@/styles/global.css";
 
-import { injectSpeedInsights } from "@vercel/speed-insights/sveltekit";
 import type { Metadata } from "next";
 import { Nunito } from "next/font/google";
 
@@ -40,8 +39,6 @@ const nunito = Nunito({
   display: "swap",
   weight: ["400", "600"],
 });
-
-injectSpeedInsights();
 
 export default function RootLayout(props: {
   children: React.ReactNode;
