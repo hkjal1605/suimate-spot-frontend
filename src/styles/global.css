@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-color: #0b0d0e;
+}
+
+.ant-dropdown-menu {
+  background-color: #33383d !important;
+}
+
+.ant-modal-content {
+  padding: 0 !important;
+}
+
+.ant-notification-notice {
+  padding: 12px !important;
+  background: #33383d !important;
+  border-radius: 6px !important;
+}
+
+.ant-notification-notice-message {
+  color: #f6f7f8 !important;
+  margin-bottom: 0 !important;
+}
+
+.ant-notification-notice-close {
+  top: 14px !important;
+  color: #f6f7f8 !important;
+}
