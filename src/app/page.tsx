@@ -1,10 +1,10 @@
-import HomePageModule from '@/modules/HomePage';
+import HomePageModule from "@/modules/HomePage";
 
 export async function generateMetadata() {
   return {
-    title: 'SuiMate - Copy Trading on Sui',
+    title: "SuiMate Spot - Copy Trading on Sui",
     description:
-      'Explore, analyze, and evaluate on-chain traders from from the perpetual DEXs built on Sui'
+      "Explore, analyze, and evaluate on-chain traders from the perpetual DEXs built on Sui",
   };
 }
 
