@@ -16,6 +16,7 @@ const Header = () => {
           alt="SuiMate"
           width={40}
           height={40}
+          unoptimized={true}
         />
         <div className="flex flex-col items-start justify-center">
           <p className="text-3xl font-semibold text-black-1000 leading-7">
