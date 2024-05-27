@@ -8,6 +8,7 @@ import Image from "next/image";
 
 import CustomModal from "@/components/CustomModal";
 import mixpanelAnalytics from "@/utils/Analytics/mixpanel";
+import ApiService from "@/services/apiService";
 
 interface IPropType {
   isOpen: boolean;
@@ -23,6 +24,7 @@ const ConnectWalletModal = (props: IPropType) => {
     notification.success({ message: "Wallet Connected" });
     setIsOpen(false);
     mixpanelAnalytics.identify(data.accounts[0].address);
+    ApiService.createUser(data.accounts[0].address);
   };
 
   return (

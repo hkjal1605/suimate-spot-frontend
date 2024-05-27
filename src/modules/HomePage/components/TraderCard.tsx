@@ -10,39 +10,17 @@ import Link from "next/link";
 import PrimaryButton from "@/components/PrimaryButton";
 import useFavoriteTradersStore from "@/stores/useFavoriteTradersStore";
 import getEllipsisTxt from "@/utils/getEllipsisText";
-import { toDecimalString } from "@/utils/parseBignum";
-import { type TradersType } from "@/types/dataTypes/tradersType";
+import { TopTradersType } from "@/types/dataTypes/topTraders";
+import numberWithCommas from "@/utils/numberWithComma";
+import { addToFavorite, removeFromFavorite } from "../utils/modifyFavorites";
 import CoinsListHorizontal from "@/components/CoinsListHorizontal";
 import CoinsList from "@/constants/coinsList";
 
 // import { addToFavorite, removeFromFavorite } from '../utils/modifyFavorites';
 
 interface IPropType {
-  trader: TradersType;
+  trader: TopTradersType;
 }
-
-const sampleCoinsList = [
-  {
-    name: "Sui",
-    balance: 0,
-  },
-  {
-    name: "USDC",
-    balance: 0,
-  },
-  {
-    name: "Cetus Token",
-    balance: 0,
-  },
-  {
-    name: "Turbos",
-    balance: 0,
-  },
-  {
-    name: "USDT",
-    balance: 0,
-  },
-];
 
 const TraderCard = (props: IPropType) => {
   const { trader } = props;
@@ -77,9 +55,9 @@ const TraderCard = (props: IPropType) => {
             if (!account?.address) return;
 
             if (!favoriteTraders.includes(trader.address)) {
-              // addToFavorite(account?.address, trader.address);
+              addToFavorite(account?.address, trader.address);
             } else {
-              // removeFromFavorite(account?.address, trader.address);
+              removeFromFavorite(account?.address, trader.address);
             }
           }}
         />
@@ -99,13 +77,13 @@ const TraderCard = (props: IPropType) => {
       <div className="w-full flex flex-col items-center justify-center">
         <p className="text-sm text-black-800">Total Volume Swapped</p>
         <p className={`text-3xl font-semibold text-green-300`}>
-          ${toDecimalString(trader.totalVolumeSwapped)}
+          ${numberWithCommas(trader.totalVolumeSwapped.toFixed(2))}
         </p>
       </div>
       <div className="flex w-full justify-between items-center">
         <div className="w-full flex flex-col items-start justify-center">
           <p className="text-sm text-black-700">Total Swaps Made</p>
-          <p className="text-base text-black-900">1055</p>
+          <p className="text-base text-black-900">{trader.totalSwapsMade}</p>
         </div>
         <div className="w-full flex flex-col items-end justify-center">
           <p className="text-sm text-black-700">Last Swap Txn</p>
@@ -116,40 +94,88 @@ const TraderCard = (props: IPropType) => {
         <div className="flex justify-between items-center w-full">
           <p className="text-sm text-black-700">Biggest Holdings:</p>
           <CoinsListHorizontal
-            coins={sampleCoinsList.map((coin) => {
-              const icon = CoinsList.find(
-                (c) => c.name === coin.name
-              )?.iconUrl!;
-              return { ...coin, icon };
-            })}
-          />
-        </div>
-        <div className="flex justify-between items-center w-full">
-          <p className="text-sm text-black-700">Most Swapped In:</p>
-          <CoinsListHorizontal
-            coins={sampleCoinsList.map((coin) => {
-              const icon = CoinsList.find(
-                (c) => c.name === coin.name
-              )?.iconUrl!;
-              return { ...coin, icon };
-            })}
-          />
-        </div>
-        <div className="flex justify-between items-center w-full">
-          <p className="text-sm text-black-700">Most Swapped Out:</p>
-          <CoinsListHorizontal
-            coins={sampleCoinsList.map((coin) => {
-              const icon = CoinsList.find(
-                (c) => c.name === coin.name
-              )?.iconUrl!;
-              return { ...coin, icon };
-            })}
+            coins={trader.balances
+              .sort(
+                (a, b) =>
+                  parseFloat(b.balanceInUsd) - parseFloat(a.balanceInUsd)
+              )
+              .map((coin) => {
+                const icon = CoinsList.find(
+                  (c) => c.name === coin.name
+                )?.iconUrl!;
+                return { ...coin, iconUrl: coin.iconUrl || icon };
+              })}
           />
         </div>
       </div>
-      <div className="w-full flex justify-start items-center gap-3">
-        <Link href={`/traders/${trader.address}`}>
-          <PrimaryButton className="max-w-[180px]">
+      <div className="w-full flex flex-col items-center justify-center gap-1">
+        <p className="text-sm text-black-700">Platform Stats:</p>
+        <div className="w-full flex justify-between items-center">
+          <div className="flex flex-col items-center justify-center gap-0.5 w-full">
+            <Image
+              src="/assets/images/platforms/kriya.webp"
+              alt="Kriya"
+              width={28}
+              height={28}
+              unoptimized
+              className="rounded-full"
+            />
+            <p className="text-xs text-black-800">
+              $
+              {numberWithCommas(
+                trader.swapData.kriya.totalVolumeSwapped.toFixed(2)
+              )}{" "}
+              Swapped
+            </p>
+            <p className="text-xs text-black-800">
+              {trader.swapData.kriya.totalSwapsMade} Swaps Made
+            </p>
+          </div>
+          <div className="flex flex-col items-center justify-center gap-0.5 w-full">
+            <Image
+              src="/assets/images/platforms/cetus.webp"
+              alt="Kriya"
+              width={28}
+              height={28}
+              unoptimized
+              className="rounded-full"
+            />
+            <p className="text-xs text-black-800">
+              $
+              {numberWithCommas(
+                trader.swapData.cetus.totalVolumeSwapped.toFixed(2)
+              )}{" "}
+              Swapped
+            </p>
+            <p className="text-xs text-black-800">
+              {trader.swapData.cetus.totalSwapsMade} Swaps Made
+            </p>
+          </div>
+          <div className="flex flex-col items-center justify-center gap-0.5 w-full">
+            <Image
+              src="/assets/images/platforms/turbos.webp"
+              alt="Kriya"
+              width={28}
+              height={28}
+              unoptimized
+              className="rounded-full"
+            />
+            <p className="text-xs text-black-800">
+              $
+              {numberWithCommas(
+                trader.swapData.turbos.totalVolumeSwapped.toFixed(2)
+              )}{" "}
+              Swapped
+            </p>
+            <p className="text-xs text-black-800">
+              {trader.swapData.turbos.totalSwapsMade} Swaps Made
+            </p>
+          </div>
+        </div>
+      </div>
+      <div className="w-full flex justify-center items-center mt-1">
+        <Link href={`/traders/${trader.address}`} className="w-2/3">
+          <PrimaryButton>
             <p className="text-sm text-black-900">View All Trades</p>
           </PrimaryButton>
         </Link>

@@ -1,21 +1,39 @@
 "use client";
 
-import React, { useState } from "react";
+import Spinner from "@/components/Spinner";
+import { AvailableDexs } from "@/constants/platforms";
+import useTopTradersStore from "@/stores/useTopTradersStore";
+import { useCurrentAccount } from "@mysten/dapp-kit";
+import React, { useEffect, useState } from "react";
 import IntroFilter from "./components/IntroFilter";
 import TraderCard from "./components/TraderCard";
 import { type OrderTradersBy } from "./types/orderTradersBy";
-
-const SampleTrader = {
-  address: "0x4a81a450d6cbb3c373c80b542c20523f7eab8c39c346ef521c54526e61d2baa6",
-  totalVolumeSwapped: 62461237623789,
-  totalSwapsMade: 123,
-  lastTradedTimestamp: 1716395913305,
-};
+import fetchTopTraders from "./utils/fetchTopTraders";
+import fetchUserData from "./utils/fetchUserData";
 
 export default function HomePageModule() {
   const [topFilter, setTopFilter] =
     useState<OrderTradersBy>("totalVolumeSwapped");
   const [dexFilter, setDexFilter] = useState<string>("All Spot Exchanges");
+
+  const account = useCurrentAccount();
+
+  const { topTraders, loaded } = useTopTradersStore();
+
+  useEffect(() => {
+    fetchTopTraders(
+      topFilter,
+      AvailableDexs.find((dex) => dex.name === dexFilter)?.key
+    );
+  }, [topFilter, dexFilter]);
+
+  useEffect(() => {
+    if (account?.address) {
+      fetchUserData(account.address);
+    }
+  }, [account?.address]);
+
+  console.log(topTraders);
 
   return (
     <div className="text-black-900 w-full">
@@ -26,17 +44,17 @@ export default function HomePageModule() {
           dexFilter={dexFilter}
           setDexFilter={setDexFilter}
         />
-        <div className="w-full grid grid-cols-3 gap-4">
-          <TraderCard trader={SampleTrader} />
-          <TraderCard trader={SampleTrader} />
-          <TraderCard trader={SampleTrader} />
-          <TraderCard trader={SampleTrader} />
-          <TraderCard trader={SampleTrader} />
-          <TraderCard trader={SampleTrader} />
-          <TraderCard trader={SampleTrader} />
-          <TraderCard trader={SampleTrader} />
-          <TraderCard trader={SampleTrader} />
-        </div>
+        {loaded ? (
+          <div className="w-full grid grid-cols-3 gap-4">
+            {topTraders.map((trader) => (
+              <TraderCard key={trader.address} trader={trader} />
+            ))}
+          </div>
+        ) : (
+          <div className="w-full h-28 flex justify-center items-center">
+            <Spinner />
+          </div>
+        )}
       </div>
     </div>
   );

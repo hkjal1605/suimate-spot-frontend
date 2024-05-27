@@ -1,28 +1,28 @@
+import {
+  type CoinBalance,
+  type CoinMetadata,
+} from "@mysten/sui.js/dist/cjs/client";
 import Image from "next/image";
 import React from "react";
 
 interface IPropType {
-  coins: {
-    name: string;
-    icon: string;
-    balance: number;
-  }[];
+  coins: (CoinBalance & CoinMetadata)[];
 }
 
 const CoinsListHorizontal = (props: IPropType) => {
   const { coins } = props;
 
   return (
-    <div className="flex justify-center items-center mr-1.5">
+    <div className="flex justify-center items-center gap-1">
       {coins.map((coin) => (
-        <div key={coin.name} className="-mr-1.5 cursor-pointer">
+        <div key={coin.name} className="cursor-pointer">
           <Image
-            src={coin.icon}
+            src={coin.iconUrl!}
             alt={coin.name}
             width={24}
             height={24}
             unoptimized
-            className="rounded-full"
+            className="min-w-6 min-h-6 max-h-6 max-w-6 object-cover rounded-full"
           />
         </div>
       ))}

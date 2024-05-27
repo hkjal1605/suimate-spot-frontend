@@ -5,34 +5,12 @@ import React from "react";
 import Image from "next/image";
 
 import DropdownComponent from "@/components/Dropdown";
+import { AvailableDexs } from "@/constants/platforms";
 
 interface IPropType {
   dexFilter: string;
   setDexFilter: (dexFilter: string) => void;
 }
-
-const AvailableDexs = [
-  {
-    image: "/assets/images/all-options.png",
-    name: "All Spot Exchanges",
-  },
-  {
-    image: "/assets/images/platforms/cetus.webp",
-    name: "Cetus",
-  },
-  {
-    image: "/assets/images/platforms/kriya.webp",
-    name: "KriyaDex",
-  },
-  {
-    image: "/assets/images/platforms/aftermath.webp",
-    name: "Aftermath Finance",
-  },
-  {
-    image: "/assets/images/platforms/turbos.webp",
-    name: "Turbos",
-  },
-];
 
 const DexFilter = (props: IPropType) => {
   const { dexFilter, setDexFilter } = props;

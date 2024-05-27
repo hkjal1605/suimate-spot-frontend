@@ -14,7 +14,7 @@ interface IPropType {
 const Options: Record<OrderTradersBy, string> = {
   totalSwapsMade: "Most Swaps Made",
   totalVolumeSwapped: "Largest Swap Volume",
-  lastTradeDate: "Most Recent Swap",
+  lastSwapTimestampMs: "Most Recent Swap",
 };
 
 const TopFilter = (props: IPropType) => {
