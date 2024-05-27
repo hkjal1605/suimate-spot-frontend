@@ -11,13 +11,18 @@ import ComingSoonModal from "@/components/ComingSoonModal";
 // import { TELEGRAM_BOT_URL } from '@/constants';
 // import fetchUserData from '@/modules/HomePage/utils/fetchUserData';
 import useTraderAlertsListStore from "@/stores/useTraderAlertsStore";
-// import useUserDataStore from '@/stores/useUserDataStore';
+import useUserDataStore from "@/stores/useUserDataStore";
 import getEllipsisTxt from "@/utils/getEllipsisText";
-
-// import {
-//   addTraderToAlertsList,
-//   removeTraderFromAlertsList
-// } from '../utils/handleSetAlerts';
+import useFavoriteTradersStore from "@/stores/useFavoriteTradersStore";
+import {
+  addToFavorite,
+  removeFromFavorite,
+} from "@/modules/HomePage/utils/modifyFavorites";
+import { TELEGRAM_BOT_URL } from "@/constants";
+import {
+  addTraderToAlertsList,
+  removeTraderFromAlertsList,
+} from "../utils/handleSetAlerts";
 
 interface IPropType {
   address: string;
@@ -25,8 +30,10 @@ interface IPropType {
 
 const TraderHeader = (props: IPropType) => {
   const account = useCurrentAccount();
-  // const { userData } = useUserDataStore();
+  const { userData } = useUserDataStore();
   const { traderAlertsList } = useTraderAlertsListStore();
+  const { favoriteTraders } = useFavoriteTradersStore();
+
   const [isComingSoonModalOpen, setIsComingSoonModalOpen] = useState(false);
   const [feature, setFeature] = useState("");
   const { address } = props;
@@ -39,24 +46,29 @@ const TraderHeader = (props: IPropType) => {
       return;
     }
 
-    // await fetchUserData(account.address);
+    if (!userData.chatId) {
+      window.open(`${TELEGRAM_BOT_URL}?start=${userData.userId}`, "_blank");
+      return;
+    }
 
-    // if (!userData.chatId) {
-    //   window.open(`${TELEGRAM_BOT_URL}?start=${userData.userId}`, '_blank');
-    //   return;
-    // }
+    if (traderAlertsList.includes(address)) {
+      await removeTraderFromAlertsList(account?.address, address);
+      notification.success({
+        message: "Trader removed from alerts list",
+      });
+    } else {
+      await addTraderToAlertsList(account?.address, address);
+      notification.success({
+        message: "Trader added to alerts list",
+      });
+    }
+  };
 
-    // if (traderAlertsList.includes(address)) {
-    //   await removeTraderFromAlertsList(account?.address, address);
-    //   notification.success({
-    //     message: 'Trader removed from alerts list'
-    //   });
-    // } else {
-    //   await addTraderToAlertsList(account?.address, address);
-    //   notification.success({
-    //     message: 'Trader added to alerts list'
-    //   });
-    // }
+  const handleCopyAddress = () => {
+    navigator.clipboard.writeText(address);
+    notification.success({
+      message: "Address copied to clipboard",
+    });
   };
 
   return (
@@ -78,13 +90,27 @@ const TraderHeader = (props: IPropType) => {
             width={16}
             height={16}
             className="cursor-pointer"
+            onClick={handleCopyAddress}
           />
           <Image
-            src="/assets/images/star.svg"
-            alt="Star"
+            src={
+              favoriteTraders.includes(address)
+                ? "/assets/images/star-filled.svg"
+                : "/assets/images/star.svg"
+            }
+            alt="Favourite"
+            className="ml-auto cursor-pointer"
             width={16}
             height={16}
-            className="cursor-pointer"
+            onClick={() => {
+              if (!account?.address) return;
+
+              if (!favoriteTraders.includes(address)) {
+                addToFavorite(account?.address, address);
+              } else {
+                removeFromFavorite(account?.address, address);
+              }
+            }}
           />
           <a href={`https://suivision.xyz/account/${address}`} target="_blank">
             <Image
@@ -107,22 +133,6 @@ const TraderHeader = (props: IPropType) => {
           <p className="text-xs text-blue-200">Sui</p>
         </div>
       </div>
-      {/* <a
-        href="https://trade.bluefin.io/ETH-PERP"
-        target="_blank"
-        className="ml-auto"
-      >
-        <div className="flex justify-center items-center gap-1.5 cursor-pointer">
-          <p className="text-base text-black-800">Trade on</p>
-          <Image
-            src="/assets/images/platforms/bluefin.png"
-            alt="bluefin"
-            width={16}
-            height={16}
-          />
-          <p className="text-base text-blue-200 font-semibold">Bluefin</p>
-        </div>
-      </a> */}
       <div className="ml-auto h-10 w-px bg-black-400" />
       <div
         className="flex justify-center items-center gap-1 cursor-pointer"
