@@ -10,7 +10,7 @@ const fetchTopTraders = async (orderBy: OrderTradersBy, platform?: string) => {
       loaded: false,
     });
 
-    const limit = 10;
+    const limit = 15;
 
     const response = await ApiService.getTopSpotTraders({
       limit,

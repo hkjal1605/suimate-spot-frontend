@@ -6,6 +6,7 @@ import { useCurrentAccount } from "@mysten/dapp-kit";
 import Avatar from "boring-avatars";
 import Image from "next/image";
 import Link from "next/link";
+import { DateTime } from "luxon";
 
 import PrimaryButton from "@/components/PrimaryButton";
 import useFavoriteTradersStore from "@/stores/useFavoriteTradersStore";
@@ -87,7 +88,11 @@ const TraderCard = (props: IPropType) => {
         </div>
         <div className="w-full flex flex-col items-end justify-center">
           <p className="text-sm text-black-700">Last Swap Txn</p>
-          <p className="text-base text-black-900">9:05 PM, 16/05/2024</p>
+          <p className="text-base text-black-900">
+            {DateTime.fromMillis(trader.lastSwapTimestampMs).toFormat(
+              "hh:mm a, MM/dd/yyyy"
+            )}
+          </p>
         </div>
       </div>
       <div className="flex flex-col items-center justify-center w-full gap-2">
