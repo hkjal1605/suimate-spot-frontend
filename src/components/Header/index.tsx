@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import React from "react";
+import React from 'react';
 
-import Image from "next/image";
-import Link from "next/link";
+import Image from 'next/image';
+import Link from 'next/link';
 
-import ConnectWallet from "../ConnectWallet";
+import ConnectWallet from '../ConnectWallet';
 
 const Header = () => {
   return (
@@ -16,7 +16,7 @@ const Header = () => {
           alt="SuiMate"
           width={40}
           height={40}
-          unoptimized={true}
+          unoptimized
         />
         <div className="flex flex-col items-start justify-center">
           <p className="text-3xl font-semibold text-black-1000 leading-7">
@@ -47,9 +47,7 @@ const Header = () => {
           </p>
         </Link>
 
-        <div
-          className={`absolute bottom-[-25px] w-32 bg-blue-200 h-2 rounded-t transition-all duration-300 left-0`}
-        />
+        <div className="absolute bottom-[-25px] w-32 bg-blue-200 h-2 rounded-t transition-all duration-300 left-0" />
       </div>
       <ConnectWallet />
     </div>

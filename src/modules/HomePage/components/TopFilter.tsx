@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import React from "react";
+import React from 'react';
 
-import DropdownComponent from "@/components/Dropdown";
+import DropdownComponent from '@/components/Dropdown';
 
-import type { OrderTradersBy } from "../types/orderTradersBy";
+import type { OrderTradersBy } from '../types/orderTradersBy';
 
 interface IPropType {
   topFilter: OrderTradersBy;
@@ -12,9 +12,9 @@ interface IPropType {
 }
 
 const Options: Record<OrderTradersBy, string> = {
-  totalSwapsMade: "Most Swaps Made",
-  totalVolumeSwapped: "Largest Swap Volume",
-  lastSwapTimestampMs: "Most Recent Swap",
+  totalSwapsMade: 'Most Swaps Made',
+  totalVolumeSwapped: 'Largest Swap Volume',
+  lastSwapTimestampMs: 'Most Recent Swap'
 };
 
 const TopFilter = (props: IPropType) => {
@@ -29,13 +29,13 @@ const TopFilter = (props: IPropType) => {
         return {
           label: (
             <p
-              className={`text-sm ${topFilter === key ? "text-blue-200" : "text-black-800"}`}
+              className={`text-sm ${topFilter === key ? 'text-blue-200' : 'text-black-800'}`}
               onClick={() => setTopFilter(key as OrderTradersBy)}
             >
               {value}
             </p>
           ),
-          key: 0,
+          key: 0
         };
       })}
     />

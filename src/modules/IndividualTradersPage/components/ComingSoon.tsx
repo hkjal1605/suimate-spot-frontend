@@ -1,10 +1,10 @@
-import React from "react";
+import React from 'react';
 
-import { notification } from "antd";
-import Image from "next/image";
+import { notification } from 'antd';
+import Image from 'next/image';
 
-import PrimaryButton from "@/components/PrimaryButton";
-import mixpanelAnalytics from "@/utils/Analytics/mixpanel";
+import PrimaryButton from '@/components/PrimaryButton';
+import mixpanelAnalytics from '@/utils/Analytics/mixpanel';
 
 const ComingSoon = () => {
   return (
@@ -23,11 +23,11 @@ const ComingSoon = () => {
       <PrimaryButton
         className="!w-2/3"
         onClick={() => {
-          mixpanelAnalytics.track("Feature Vote", {
-            featureName: "detailed chart analysis",
+          mixpanelAnalytics.track('Feature Vote', {
+            featureName: 'detailed chart analysis'
           });
           notification.success({
-            message: "Vote Submitted",
+            message: 'Vote Submitted'
           });
         }}
       >

@@ -1,12 +1,13 @@
-"use client";
+'use client';
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from 'react';
 
-import useTradersStats from "@/stores/useTradersStats";
-import numberWithCommas from "@/utils/numberWithComma";
-import { DateTime } from "luxon";
-import useUserHoldingsStore from "@/stores/useUserHoldingsStore";
-import BigNumber from "bignumber.js";
+import BigNumber from 'bignumber.js';
+import { DateTime } from 'luxon';
+
+import useTradersStats from '@/stores/useTradersStats';
+import useUserHoldingsStore from '@/stores/useUserHoldingsStore';
+import numberWithCommas from '@/utils/numberWithComma';
 
 const TradersStats = () => {
   const { stats } = useTradersStats();
@@ -14,9 +15,9 @@ const TradersStats = () => {
 
   const [accountBalance, setAccountBalance] = useState(0);
   const [biggestHolding, setBiggestHolding] = useState({
-    icon: "",
-    symbol: "",
-    balance: 0,
+    icon: '',
+    symbol: '',
+    balance: 0
   });
 
   useEffect(() => {
@@ -32,11 +33,11 @@ const TradersStats = () => {
 
         if (balanceUsd > biggestHolding.balance) {
           setBiggestHolding({
-            icon: coin.iconUrl || "",
+            icon: coin.iconUrl || '',
             symbol: coin.symbol,
             balance: BigNumber(coin.totalBalance)
               .dividedBy(BigNumber(10 ** coin.decimals))
-              .toNumber(),
+              .toNumber()
           });
         }
       });
@@ -54,10 +55,6 @@ const TradersStats = () => {
             ${numberWithCommas(accountBalance.toFixed(2))}
           </p>
         </div>
-        <div className="flex flex-col items-end justify-center">
-          <p className="text-base text-black-800">1 Week Change</p>
-          <p className={`text-3xl font-semibold text-green-300`}>+$1,325.00</p>
-        </div>
       </div>
       <div className="w-full flex flex-col items-center justify-center gap-3 px-3 border-b-[1px] border-black-400 pb-3">
         <div className="w-full flex items-center justify-between">
@@ -74,14 +71,14 @@ const TradersStats = () => {
           <p className="text-sm text-black-700">Last Swap Made At</p>
           <p className="text-sm text-black-900">
             {DateTime.fromMillis(stats.lastSwapTimestampMs).toFormat(
-              "hh:mm a, dd LLL yyyy"
+              'hh:mm a, dd LLL yyyy'
             )}
           </p>
         </div>
         <div className="w-full flex items-center justify-between">
           <p className="text-sm text-black-700">Biggest Bag</p>
           <p className="text-sm text-black-900">
-            {numberWithCommas(biggestHolding.balance.toFixed(2))}{" "}
+            {numberWithCommas(biggestHolding.balance.toFixed(2))}{' '}
             {biggestHolding.symbol}
           </p>
         </div>

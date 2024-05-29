@@ -1,8 +1,9 @@
-import React from "react";
-import TradeCard from "./TradeCard";
+import React from 'react';
 
-import usePastTradesStore from "@/stores/usePastTradesStore";
-import Spinner from "@/components/Spinner";
+import Spinner from '@/components/Spinner';
+import usePastTradesStore from '@/stores/usePastTradesStore';
+
+import TradeCard from './TradeCard';
 
 const PastTrades = () => {
   const { trades, loaded } = usePastTradesStore();

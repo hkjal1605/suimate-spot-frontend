@@ -1,1 +1,1 @@
-export type AvailableDexs = "cetus" | "kriya" | "aftermath" | "turbos";
+export type AvailableDexs = 'cetus' | 'kriya' | 'aftermath' | 'turbos';

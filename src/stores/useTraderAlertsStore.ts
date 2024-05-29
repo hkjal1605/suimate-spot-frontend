@@ -1,6 +1,6 @@
-import { createStore } from "zustand/vanilla";
+import { createStore } from 'zustand/vanilla';
 
-import createBoundedUseStore from "@/utils/createBoundedUseStore";
+import createBoundedUseStore from '@/utils/createBoundedUseStore';
 
 type State = {
   traderAlertsList: string[];
@@ -8,7 +8,7 @@ type State = {
 };
 
 type Action = {
-  setTraderAlertsList: (traderAlertsList: State["traderAlertsList"]) => void;
+  setTraderAlertsList: (traderAlertsList: State['traderAlertsList']) => void;
 };
 
 // using createStore from zustand/vanilla instead of store because we want to use this state outside of react components
@@ -18,8 +18,8 @@ export const traderAlertsListStore = createStore<State & Action>()((set) => ({
   setTraderAlertsList: (traderAlertsList) =>
     set(() => ({
       traderAlertsList,
-      loaded: true,
-    })),
+      loaded: true
+    }))
 }));
 
 // Create a hook to be used inside react components

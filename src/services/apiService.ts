@@ -1,6 +1,6 @@
-import axios from "axios";
+import axios from 'axios';
 
-import type { GetTopTradersApiPayload } from "@/types/apiPayload/getTopSpotTraders";
+import type { GetTopTradersApiPayload } from '@/types/apiPayload/getTopSpotTraders';
 
 import {
   ALERTS_FUNCTIONS_ENDPOINT,
@@ -8,8 +8,8 @@ import {
   GET_TOP_TRADERS_ENDPOINT,
   GET_TRADER_HOLDINGS_ENDPOINT,
   GET_TRADER_STATS_ENDPOINT,
-  USER_FUNCTIONS_ENDPOINT,
-} from "./constants";
+  USER_FUNCTIONS_ENDPOINT
+} from './constants';
 
 export default class ApiService {
   static getTopSpotTraders(data: GetTopTradersApiPayload) {
@@ -35,7 +35,7 @@ export default class ApiService {
   static addTraderToFavoriteList(userAddress: string, traderAddress: string) {
     return axios.post(`${USER_FUNCTIONS_ENDPOINT}/addToFavorites`, {
       userAddress,
-      traderAddress,
+      traderAddress
     });
   }
 
@@ -45,7 +45,7 @@ export default class ApiService {
   ) {
     return axios.post(`${USER_FUNCTIONS_ENDPOINT}/removeFromFavorites`, {
       userAddress,
-      traderAddress,
+      traderAddress
     });
   }
 
@@ -70,14 +70,14 @@ export default class ApiService {
   static addTraderToAlertList(userAddress: string, traderAddress: string) {
     return axios.post(`${ALERTS_FUNCTIONS_ENDPOINT}/addTraderToAlerts`, {
       userAddress,
-      traderAddress,
+      traderAddress
     });
   }
 
   static removeTraderFromAlertList(userAddress: string, traderAddress: string) {
     return axios.post(`${ALERTS_FUNCTIONS_ENDPOINT}/removeTraderFromAlerts`, {
       userAddress,
-      traderAddress,
+      traderAddress
     });
   }
 

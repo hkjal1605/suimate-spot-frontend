@@ -1,9 +1,10 @@
+import React from 'react';
+
 import {
   type CoinBalance,
-  type CoinMetadata,
-} from "@mysten/sui.js/dist/cjs/client";
-import Image from "next/image";
-import React from "react";
+  type CoinMetadata
+} from '@mysten/sui.js/dist/cjs/client';
+import Image from 'next/image';
 
 interface IPropType {
   coins: (CoinBalance & CoinMetadata)[];

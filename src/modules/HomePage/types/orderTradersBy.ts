@@ -1,4 +1,4 @@
 export type OrderTradersBy =
-  | "totalVolumeSwapped"
-  | "totalSwapsMade"
-  | "lastSwapTimestampMs";
+  | 'totalVolumeSwapped'
+  | 'totalSwapsMade'
+  | 'lastSwapTimestampMs';

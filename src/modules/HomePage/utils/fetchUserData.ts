@@ -1,29 +1,29 @@
-import ApiService from "@/services/apiService";
-import { favoriteTradersStore } from "@/stores/useFavoriteTradersStore";
-import { traderAlertsListStore } from "@/stores/useTraderAlertsStore";
-import { userDataStore } from "@/stores/useUserDataStore";
-import { logger } from "@/utils/Logger";
+import ApiService from '@/services/apiService';
+import { favoriteTradersStore } from '@/stores/useFavoriteTradersStore';
+import { traderAlertsListStore } from '@/stores/useTraderAlertsStore';
+import { userDataStore } from '@/stores/useUserDataStore';
+import { logger } from '@/utils/Logger';
 
 const fetchUserData = async (userAddress: string) => {
   try {
     userDataStore.setState({
-      loaded: false,
+      loaded: false
     });
 
     const userData = await ApiService.getUserData(userAddress);
 
     userDataStore.setState({
       userData: userData.data,
-      loaded: true,
+      loaded: true
     });
 
     favoriteTradersStore.setState({
       favoriteTraders: userData.data.favorites,
-      loaded: true,
+      loaded: true
     });
 
     traderAlertsListStore.setState({
-      traderAlertsList: userData.data.alerts,
+      traderAlertsList: userData.data.alerts
     });
   } catch (error) {
     logger.error(error);

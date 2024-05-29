@@ -1,7 +1,9 @@
-import Spinner from "@/components/Spinner";
-import useUserHoldingsStore from "@/stores/useUserHoldingsStore";
-import React from "react";
-import TraderHoldingsCard from "./TraderHoldingsCard";
+import React from 'react';
+
+import Spinner from '@/components/Spinner';
+import useUserHoldingsStore from '@/stores/useUserHoldingsStore';
+
+import TraderHoldingsCard from './TraderHoldingsCard';
 
 const TradersHoldings = () => {
   const { holdings, loaded } = useUserHoldingsStore();

@@ -1,21 +1,23 @@
-"use client";
+'use client';
 
-import React, { useEffect } from "react";
-import TraderHeader from "./components/TraderHeader";
-import { usePathname } from "next/navigation";
-import ComingSoon from "./components/ComingSoon";
-import TradersStats from "./components/TraderStats";
-import TradersHoldings from "./components/TradersHoldings";
-import PastTrades from "./components/PastTrades";
-import { fetchPastTrades } from "./utils/fetchPastTrades";
-import { fetchTradersStats } from "./utils/fetchTradersStats";
-import { fetchUserHoldings } from "./utils/fetchUserHoldings";
-import { useCurrentAccount } from "@mysten/dapp-kit";
-import fetchUserData from "../HomePage/utils/fetchUserData";
+import React, { useEffect } from 'react';
+
+import { useCurrentAccount } from '@mysten/dapp-kit';
+import { usePathname } from 'next/navigation';
+
+import ComingSoon from './components/ComingSoon';
+import PastTrades from './components/PastTrades';
+import TraderHeader from './components/TraderHeader';
+import TradersHoldings from './components/TradersHoldings';
+import TradersStats from './components/TraderStats';
+import { fetchPastTrades } from './utils/fetchPastTrades';
+import { fetchTradersStats } from './utils/fetchTradersStats';
+import { fetchUserHoldings } from './utils/fetchUserHoldings';
+import fetchUserData from '../HomePage/utils/fetchUserData';
 
 const IndividualTradersModule = () => {
   const pathname = usePathname();
-  const address = pathname.split("/").pop() || "";
+  const address = pathname.split('/').pop() || '';
 
   const account = useCurrentAccount();
 

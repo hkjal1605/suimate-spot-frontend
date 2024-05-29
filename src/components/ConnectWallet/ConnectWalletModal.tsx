@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import React from "react";
+import React from 'react';
 
-import { useWallets, useConnectWallet } from "@mysten/dapp-kit";
-import { notification } from "antd";
-import Image from "next/image";
+import { useWallets, useConnectWallet } from '@mysten/dapp-kit';
+import { notification } from 'antd';
+import Image from 'next/image';
 
-import CustomModal from "@/components/CustomModal";
-import mixpanelAnalytics from "@/utils/Analytics/mixpanel";
-import ApiService from "@/services/apiService";
+import CustomModal from '@/components/CustomModal';
+import ApiService from '@/services/apiService';
+import mixpanelAnalytics from '@/utils/Analytics/mixpanel';
 
 interface IPropType {
   isOpen: boolean;
@@ -21,7 +21,7 @@ const ConnectWalletModal = (props: IPropType) => {
   const { mutate: connect } = useConnectWallet();
 
   const handleConnectWalletSuccess = (data: any) => {
-    notification.success({ message: "Wallet Connected" });
+    notification.success({ message: 'Wallet Connected' });
     setIsOpen(false);
     mixpanelAnalytics.identify(data.accounts[0].address);
     ApiService.createUser(data.accounts[0].address);
@@ -40,7 +40,7 @@ const ConnectWalletModal = (props: IPropType) => {
                 connect(
                   { wallet },
                   {
-                    onSuccess: handleConnectWalletSuccess,
+                    onSuccess: handleConnectWalletSuccess
                   }
                 );
               }}

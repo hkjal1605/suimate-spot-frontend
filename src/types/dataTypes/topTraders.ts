@@ -1,7 +1,7 @@
 import {
   type CoinBalance,
-  type CoinMetadata,
-} from "@mysten/sui.js/dist/cjs/client";
+  type CoinMetadata
+} from '@mysten/sui.js/dist/cjs/client';
 
 export type TopTradersType = {
   totalLiquidityProvided: number;

@@ -1,21 +1,22 @@
-"use client";
+'use client';
 
-import React from "react";
+import React from 'react';
 
-import { useCurrentAccount } from "@mysten/dapp-kit";
-import Avatar from "boring-avatars";
-import Image from "next/image";
-import Link from "next/link";
-import { DateTime } from "luxon";
+import { useCurrentAccount } from '@mysten/dapp-kit';
+import Avatar from 'boring-avatars';
+import { DateTime } from 'luxon';
+import Image from 'next/image';
+import Link from 'next/link';
 
-import PrimaryButton from "@/components/PrimaryButton";
-import useFavoriteTradersStore from "@/stores/useFavoriteTradersStore";
-import getEllipsisTxt from "@/utils/getEllipsisText";
-import { TopTradersType } from "@/types/dataTypes/topTraders";
-import numberWithCommas from "@/utils/numberWithComma";
-import { addToFavorite, removeFromFavorite } from "../utils/modifyFavorites";
-import CoinsListHorizontal from "@/components/CoinsListHorizontal";
-import CoinsList from "@/constants/coinsList";
+import CoinsListHorizontal from '@/components/CoinsListHorizontal';
+import PrimaryButton from '@/components/PrimaryButton';
+import CoinsList from '@/constants/coinsList';
+import useFavoriteTradersStore from '@/stores/useFavoriteTradersStore';
+import type { TopTradersType } from '@/types/dataTypes/topTraders';
+import getEllipsisTxt from '@/utils/getEllipsisText';
+import numberWithCommas from '@/utils/numberWithComma';
+
+import { addToFavorite, removeFromFavorite } from '../utils/modifyFavorites';
 
 // import { addToFavorite, removeFromFavorite } from '../utils/modifyFavorites';
 
@@ -35,7 +36,7 @@ const TraderCard = (props: IPropType) => {
           size={40}
           name={trader.address}
           variant="beam"
-          colors={["#96ceb4", "#146A7C", "#F0AB3D", "#C271B4", "#C20D90"]}
+          colors={['#96ceb4', '#146A7C', '#F0AB3D', '#C271B4', '#C20D90']}
         />
         <p className="text-black-800 text-sm">
           {getEllipsisTxt(trader.address, 6, 5)}
@@ -45,8 +46,8 @@ const TraderCard = (props: IPropType) => {
         <Image
           src={
             favoriteTraders.includes(trader.address)
-              ? "/assets/images/star-filled.svg"
-              : "/assets/images/star.svg"
+              ? '/assets/images/star-filled.svg'
+              : '/assets/images/star.svg'
           }
           alt="Favourite"
           className="ml-auto cursor-pointer"
@@ -77,7 +78,7 @@ const TraderCard = (props: IPropType) => {
         </div> */}
       <div className="w-full flex flex-col items-center justify-center">
         <p className="text-sm text-black-800">Total Volume Swapped</p>
-        <p className={`text-3xl font-semibold text-green-300`}>
+        <p className="text-3xl font-semibold text-green-300">
           ${numberWithCommas(trader.totalVolumeSwapped.toFixed(2))}
         </p>
       </div>
@@ -90,7 +91,7 @@ const TraderCard = (props: IPropType) => {
           <p className="text-sm text-black-700">Last Swap Txn</p>
           <p className="text-base text-black-900">
             {DateTime.fromMillis(trader.lastSwapTimestampMs).toFormat(
-              "hh:mm a, MM/dd/yyyy"
+              'hh:mm a, MM/dd/yyyy'
             )}
           </p>
         </div>
@@ -129,7 +130,7 @@ const TraderCard = (props: IPropType) => {
               $
               {numberWithCommas(
                 trader.swapData.kriya.totalVolumeSwapped.toFixed(2)
-              )}{" "}
+              )}{' '}
               Swapped
             </p>
             <p className="text-xs text-black-800">
@@ -149,7 +150,7 @@ const TraderCard = (props: IPropType) => {
               $
               {numberWithCommas(
                 trader.swapData.cetus.totalVolumeSwapped.toFixed(2)
-              )}{" "}
+              )}{' '}
               Swapped
             </p>
             <p className="text-xs text-black-800">
@@ -169,7 +170,7 @@ const TraderCard = (props: IPropType) => {
               $
               {numberWithCommas(
                 trader.swapData.turbos.totalVolumeSwapped.toFixed(2)
-              )}{" "}
+              )}{' '}
               Swapped
             </p>
             <p className="text-xs text-black-800">

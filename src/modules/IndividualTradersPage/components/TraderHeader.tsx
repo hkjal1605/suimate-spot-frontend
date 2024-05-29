@@ -1,28 +1,29 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-import { useCurrentAccount } from "@mysten/dapp-kit";
-import { notification } from "antd";
-import Avatar from "boring-avatars";
-import Image from "next/image";
+import { useCurrentAccount } from '@mysten/dapp-kit';
+import { notification } from 'antd';
+import Avatar from 'boring-avatars';
+import Image from 'next/image';
 
-import ComingSoonModal from "@/components/ComingSoonModal";
 // import { TELEGRAM_BOT_URL } from '@/constants';
 // import fetchUserData from '@/modules/HomePage/utils/fetchUserData';
-import useTraderAlertsListStore from "@/stores/useTraderAlertsStore";
-import useUserDataStore from "@/stores/useUserDataStore";
-import getEllipsisTxt from "@/utils/getEllipsisText";
-import useFavoriteTradersStore from "@/stores/useFavoriteTradersStore";
+import { TELEGRAM_BOT_URL } from '@/constants';
 import {
   addToFavorite,
-  removeFromFavorite,
-} from "@/modules/HomePage/utils/modifyFavorites";
-import { TELEGRAM_BOT_URL } from "@/constants";
+  removeFromFavorite
+} from '@/modules/HomePage/utils/modifyFavorites';
+import useFavoriteTradersStore from '@/stores/useFavoriteTradersStore';
+import useTraderAlertsListStore from '@/stores/useTraderAlertsStore';
+import useUserDataStore from '@/stores/useUserDataStore';
+import getEllipsisTxt from '@/utils/getEllipsisText';
+
+import SwapModal from './SwapModal';
 import {
   addTraderToAlertsList,
-  removeTraderFromAlertsList,
-} from "../utils/handleSetAlerts";
+  removeTraderFromAlertsList
+} from '../utils/handleSetAlerts';
 
 interface IPropType {
   address: string;
@@ -34,32 +35,31 @@ const TraderHeader = (props: IPropType) => {
   const { traderAlertsList } = useTraderAlertsListStore();
   const { favoriteTraders } = useFavoriteTradersStore();
 
-  const [isComingSoonModalOpen, setIsComingSoonModalOpen] = useState(false);
-  const [feature, setFeature] = useState("");
+  const [isSwapModalOpen, setIsSwapModalOpen] = useState(false);
   const { address } = props;
 
   const handleSetAlertsClick = async () => {
     if (!account?.address) {
       notification.error({
-        message: "Please connect your wallet to set alerts",
+        message: 'Please connect your wallet to set alerts'
       });
       return;
     }
 
     if (!userData.chatId) {
-      window.open(`${TELEGRAM_BOT_URL}?start=${userData.userId}`, "_blank");
+      window.open(`${TELEGRAM_BOT_URL}?start=${userData.userId}`, '_blank');
       return;
     }
 
     if (traderAlertsList.includes(address)) {
       await removeTraderFromAlertsList(account?.address, address);
       notification.success({
-        message: "Trader removed from alerts list",
+        message: 'Trader removed from alerts list'
       });
     } else {
       await addTraderToAlertsList(account?.address, address);
       notification.success({
-        message: "Trader added to alerts list",
+        message: 'Trader added to alerts list'
       });
     }
   };
@@ -67,7 +67,7 @@ const TraderHeader = (props: IPropType) => {
   const handleCopyAddress = () => {
     navigator.clipboard.writeText(address);
     notification.success({
-      message: "Address copied to clipboard",
+      message: 'Address copied to clipboard'
     });
   };
 
@@ -77,7 +77,7 @@ const TraderHeader = (props: IPropType) => {
         size={40}
         name={address}
         variant="beam"
-        colors={["#96ceb4", "#146A7C", "#F0AB3D", "#C271B4", "#C20D90"]}
+        colors={['#96ceb4', '#146A7C', '#F0AB3D', '#C271B4', '#C20D90']}
       />
       <div className="flex flex-col items-start justify-center">
         <div className="flex gap-1.5 justify-start items-center">
@@ -95,8 +95,8 @@ const TraderHeader = (props: IPropType) => {
           <Image
             src={
               favoriteTraders.includes(address)
-                ? "/assets/images/star-filled.svg"
-                : "/assets/images/star.svg"
+                ? '/assets/images/star-filled.svg'
+                : '/assets/images/star.svg'
             }
             alt="Favourite"
             className="ml-auto cursor-pointer"
@@ -141,8 +141,8 @@ const TraderHeader = (props: IPropType) => {
         <Image
           src={
             traderAlertsList.includes(address)
-              ? "/assets/images/bell-filled.svg"
-              : "/assets/images/bell.svg"
+              ? '/assets/images/bell-filled.svg'
+              : '/assets/images/bell.svg'
           }
           alt="bell"
           width={16}
@@ -150,16 +150,15 @@ const TraderHeader = (props: IPropType) => {
         />
         <p className="text-base text-black-800">
           {traderAlertsList.includes(address)
-            ? "Notifications ON"
-            : "Notify on New Trades"}
+            ? 'Notifications ON'
+            : 'Notify on New Trades'}
         </p>
       </div>
       <div className=" h-10 w-px bg-black-400" />
       <div
         className="flex justify-center items-center gap-1 cursor-pointer"
         onClick={() => {
-          setFeature("Place Trade");
-          setIsComingSoonModalOpen(true);
+          setIsSwapModalOpen(true);
         }}
       >
         <Image
@@ -170,11 +169,7 @@ const TraderHeader = (props: IPropType) => {
         />
         <p className="text-base text-black-800">Perform a Swap</p>
       </div>
-      <ComingSoonModal
-        isOpen={isComingSoonModalOpen}
-        setIsOpen={setIsComingSoonModalOpen}
-        featureName={feature}
-      />
+      <SwapModal isOpen={isSwapModalOpen} setIsOpen={setIsSwapModalOpen} />
     </div>
   );
 };

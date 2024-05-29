@@ -1,13 +1,14 @@
-import React from "react";
+import React from 'react';
 
-import Image from "next/image";
-import { UserHoldingsType } from "@/types/dataTypes/userHoldings";
+import BigNumber from 'bignumber.js';
+import Image from 'next/image';
+
+import CoinsList from '@/constants/coinsList';
+import type { UserHoldingsType } from '@/types/dataTypes/userHoldings';
 import {
   convertToInternationalCurrencySystem,
-  toDecimalBigNumberValue,
-} from "@/utils/parseBignum";
-import BigNumber from "bignumber.js";
-import CoinsList from "@/constants/coinsList";
+  toDecimalBigNumberValue
+} from '@/utils/parseBignum';
 
 interface IPropType {
   coin: UserHoldingsType;
@@ -19,7 +20,7 @@ const TraderHoldingsCard = (props: IPropType) => {
   const coinIcon =
     CoinsList.find((c) => c.symbol === coin.symbol)?.iconUrl ||
     coin.iconUrl ||
-    "";
+    '';
 
   return (
     <div className="w-full flex items-center justify-between bg-black-200 border-[1px] border-transparent hover:border-black-500 transition-all duration-200 py-1 px-2 rounded-md">
@@ -40,7 +41,7 @@ const TraderHoldingsCard = (props: IPropType) => {
         <p className="text-sm text-black-900">
           {convertToInternationalCurrencySystem(
             toDecimalBigNumberValue(BigNumber(coin.totalBalance), coin.decimals)
-          )}{" "}
+          )}{' '}
           {coin.symbol}
         </p>
         <p className="text-sm text-black-700">
@@ -51,7 +52,7 @@ const TraderHoldingsCard = (props: IPropType) => {
             .toFixed(2)}
         </p>
       </div>
-      <div className={`w-full flex-1 text-sm text-end text-green-300`}>
+      <div className="w-full flex-1 text-sm text-end text-green-300">
         $17,932.00
       </div>
     </div>

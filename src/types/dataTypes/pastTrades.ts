@@ -1,4 +1,4 @@
-import { type CoinMetadata } from "@mysten/sui.js/dist/cjs/client";
+import { type CoinMetadata } from '@mysten/sui.js/dist/cjs/client';
 
 export type PastTradesType = {
   amountIn: string;

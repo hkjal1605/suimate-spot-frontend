@@ -1,20 +1,23 @@
-"use client";
+'use client';
 
-import Spinner from "@/components/Spinner";
-import { AvailableDexs } from "@/constants/platforms";
-import useTopTradersStore from "@/stores/useTopTradersStore";
-import { useCurrentAccount } from "@mysten/dapp-kit";
-import React, { useEffect, useState } from "react";
-import IntroFilter from "./components/IntroFilter";
-import TraderCard from "./components/TraderCard";
-import { type OrderTradersBy } from "./types/orderTradersBy";
-import fetchTopTraders from "./utils/fetchTopTraders";
-import fetchUserData from "./utils/fetchUserData";
+import React, { useEffect, useState } from 'react';
+
+import { useCurrentAccount } from '@mysten/dapp-kit';
+
+import Spinner from '@/components/Spinner';
+import { AvailableDexs } from '@/constants/platforms';
+import useTopTradersStore from '@/stores/useTopTradersStore';
+
+import IntroFilter from './components/IntroFilter';
+import TraderCard from './components/TraderCard';
+import { type OrderTradersBy } from './types/orderTradersBy';
+import fetchTopTraders from './utils/fetchTopTraders';
+import fetchUserData from './utils/fetchUserData';
 
 export default function HomePageModule() {
   const [topFilter, setTopFilter] =
-    useState<OrderTradersBy>("totalVolumeSwapped");
-  const [dexFilter, setDexFilter] = useState<string>("All Spot Exchanges");
+    useState<OrderTradersBy>('totalVolumeSwapped');
+  const [dexFilter, setDexFilter] = useState<string>('All Spot Exchanges');
 
   const account = useCurrentAccount();
 

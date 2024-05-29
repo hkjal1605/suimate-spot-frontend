@@ -17,7 +17,7 @@ const DropdownComponent = (props: IPropType) => {
     <Dropdown
       menu={{ items: menuItems }}
       dropdownRender={(menu) => (
-        <div className="bg-black-300 rounded-md">
+        <div className="bg-black-300 rounded-md max-h-[200px] overflow-auto">
           {React.cloneElement(menu as React.ReactElement)}
         </div>
       )}
