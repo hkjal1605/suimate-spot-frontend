@@ -8,7 +8,7 @@ const Footer = () => {
       <div className="flex justify-start items-center gap-1">
         <p className="text-sm text-black-800">Last updated at:</p>
         <p className="text-sm text-yellow-300 font-medium">
-          04/27/2024 12:00:00 UTC
+          05/31/2024 12:00:00 UTC
         </p>
       </div>
       <p className="text-base text-black-1000 font-medium">
