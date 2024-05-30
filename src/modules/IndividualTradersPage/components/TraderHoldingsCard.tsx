@@ -37,7 +37,7 @@ const TraderHoldingsCard = (props: IPropType) => {
           <p className="text-sm text-black-900">{coin.symbol}</p>
         </div>
       </div>
-      <div className="w-full flex-1 flex flex-col justify-center items-center gap-1">
+      <div className="w-full flex-1 flex flex-col justify-center items-end gap-1">
         <p className="text-sm text-black-900">
           {convertToInternationalCurrencySystem(
             toDecimalBigNumberValue(BigNumber(coin.totalBalance), coin.decimals)
@@ -51,9 +51,6 @@ const TraderHoldingsCard = (props: IPropType) => {
             .multipliedBy(BigNumber(coin.coinPrice))
             .toFixed(2)}
         </p>
-      </div>
-      <div className="w-full flex-1 text-sm text-end text-green-300">
-        $17,932.00
       </div>
     </div>
   );

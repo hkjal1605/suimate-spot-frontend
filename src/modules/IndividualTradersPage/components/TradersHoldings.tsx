@@ -15,11 +15,8 @@ const TradersHoldings = () => {
         <p className="text-sm w-full flex-[1.2] text-left text-black-700">
           Coin
         </p>
-        <p className="text-sm w-full flex-1 text-center text-black-700">
-          Net Holding
-        </p>
         <p className="text-sm w-full flex-1 text-end text-black-700">
-          Total Gains Till Date
+          Net Holding
         </p>
       </div>
       {loaded ? (
