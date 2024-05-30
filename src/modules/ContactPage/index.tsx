@@ -32,7 +32,7 @@ const ContactPageModule = () => {
           />
         </a>
         <a
-          href="https://twitter.com/hkj1605"
+          href="https://x.com/defi_or_defuck"
           target="_blank"
           rel="noreferrer noopener"
         >

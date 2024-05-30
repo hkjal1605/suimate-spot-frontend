@@ -11,21 +11,25 @@ const Header = () => {
   return (
     <div className="w-full flex justify-start items-center py-3 px-5 border-b-[1px] border-black-400 gap-5">
       <div className="flex justify-start items-center gap-2">
-        <Image
-          src="/assets/images/logo-white.png"
-          alt="SuiMate"
-          width={40}
-          height={40}
-          unoptimized
-        />
-        <div className="flex flex-col items-start justify-center">
-          <p className="text-3xl font-semibold text-black-1000 leading-7">
-            SuiMate
-          </p>
-          <p className="text-sm font-normal text-blue-300">
-            Copy Trading on Sui
-          </p>
-        </div>
+        <Link href="/">
+          <div className="flex justify-start items-center gap-2">
+            <Image
+              src="/assets/images/logo-white.png"
+              alt="SuiMate"
+              width={40}
+              height={40}
+              unoptimized
+            />
+            <div className="flex flex-col items-start justify-center">
+              <p className="text-3xl font-semibold text-black-1000 leading-7">
+                SuiMate
+              </p>
+              <p className="text-sm font-normal text-blue-300">
+                Copy Trading on Sui
+              </p>
+            </div>
+          </div>
+        </Link>
         <a href="https://perps.suimate.trade" target="_blank" className="ml-10">
           <p className="text-black-900 text-base font-medium">Perps</p>
         </a>
